@@ -24,8 +24,8 @@ function SpellsGrid({ spellsData, fetchSpells }) {
     <Grid container className={classes.grid} spacing={2}>
       {spellsData.data
         ? spellsData.data.map((spell) => (
-            <Grid item xs={4}>
-              <SpellCard key={spell.name} spell={spell} />
+            <Grid item xs={4} key={spell.name}>
+              <SpellCard spell={spell} />
             </Grid>
           ))
         : null}

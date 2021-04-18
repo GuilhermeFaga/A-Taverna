@@ -2,7 +2,18 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { checkStorage, readFromStorage } from "./storage";
 import * as keys from "./storageTypes";
 
+const customBreakpoints = {
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 1150,
+    lg: 1400,
+    xl: 1920,
+  },
+};
+
 const lightTheme = createMuiTheme({
+  breakpoints: customBreakpoints,
   palette: {
     type: "light",
     primary: {
@@ -21,6 +32,7 @@ const lightTheme = createMuiTheme({
 });
 
 const darkTheme = createMuiTheme({
+  breakpoints: customBreakpoints,
   palette: {
     type: "dark",
     primary: {

@@ -1,8 +1,25 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Typography } from "@material-ui/core";
+import { Card, Typography, ButtonBase } from "@material-ui/core";
+import { spellSelected } from "../app/actions";
+import SpellComponent from "./spellComponent";
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    borderRadius: 10,
+  },
+  true: {
+    "&:after": {
+      content: "''",
+      border: "1px solid",
+      borderColor: theme.palette.primary.main,
+      borderRadius: 12,
+      height: "100%",
+      width: "100%",
+      position: "absolute",
+      padding: 2,
+    },
+  },
   card: {
     width: 250,
     backgroundColor: theme.palette.secondary.main,
@@ -32,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   bottomItem: {
     marginRight: theme.spacing(2),
     whiteSpace: "nowrap",
+    textAlign: "start",
   },
   value: {
     fontWeight: 500,
@@ -42,57 +60,54 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginLeft: "auto",
   },
-  components: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.text.secondary,
-    marginRight: theme.spacing(1),
-    textAlign: "center",
-    borderRadius: 100,
-    height: 24,
-    width: 24,
-  },
 }));
 
 export default function SpellCard({ spell }) {
   const dispatch = useDispatch();
+  const selected =
+    spell.spell_id === useSelector((state) => state.spells.selectedId);
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
-      <div className={classes.titleArea}>
-        <Typography variant="subtitle2">{spell.name}</Typography>
-        <Typography className={classes.type} variant="caption">
-          {spell.type}
-        </Typography>
-      </div>
-      <div className={classes.bottomArea}>
-        <div className={classes.bottomItem}>
-          <Typography variant="overline">TC</Typography>
-          <Typography variant="body1" className={classes.value}>
-            {formatCastingTime(spell.casting_time)}
+    <ButtonBase
+      disableRipple
+      className={classes.button + " " + classes[selected]}
+      onClick={() => dispatch(spellSelected(spell))}
+    >
+      <Card className={classes.card}>
+        <div className={classes.titleArea}>
+          <Typography variant="subtitle2">{spell.name}</Typography>
+          <Typography className={classes.type} variant="caption">
+            {spell.type}
           </Typography>
         </div>
-        <div className={classes.bottomItem}>
-          <Typography variant="overline">ALC</Typography>
-          <Typography variant="body1" className={classes.value}>
-            {formatRange(spell.range)}
-          </Typography>
+        <div className={classes.bottomArea}>
+          <div className={classes.bottomItem}>
+            <Typography variant="overline">TC</Typography>
+            <Typography variant="body1" className={classes.value}>
+              {formatCastingTime(spell.casting_time)}
+            </Typography>
+          </div>
+          <div className={classes.bottomItem}>
+            <Typography variant="overline">ALC</Typography>
+            <Typography variant="body1" className={classes.value}>
+              {formatRange(spell.range)}
+            </Typography>
+          </div>
+          <div className={classes.bottomItem}>
+            <Typography variant="overline">DUR</Typography>
+            <Typography variant="body1" className={classes.value}>
+              {formatDuration(spell.duration)}
+            </Typography>
+          </div>
+          <div className={classes.componentsContainer}>
+            {spell.components.map((component) => (
+              <SpellComponent component={component} />
+            ))}
+          </div>
         </div>
-        <div className={classes.bottomItem}>
-          <Typography variant="overline">DUR</Typography>
-          <Typography variant="body1" className={classes.value}>
-            {formatDuration(spell.duration)}
-          </Typography>
-        </div>
-        <div className={classes.componentsContainer}>
-          {spell.components.map((component) => (
-            <div className={classes.components}>
-              <Typography variant="body1">{component}</Typography>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Card>
+      </Card>
+    </ButtonBase>
   );
 }
 

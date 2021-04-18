@@ -33,3 +33,10 @@ export const fetchSpells = () => (dispatch) => {
     .then((response) => dispatch(fetchSpellsSuccess(response.data)))
     .catch((error) => dispatch(fetchSpellsSuccess(error.message)));
 };
+
+export const spellSelected = (spell) => ({
+  type: actions.SPELL_SELECTED,
+  payload: {
+    id: spell.spell_id,
+  },
+});
