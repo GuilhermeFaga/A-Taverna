@@ -1,11 +1,14 @@
-import { Provider } from "react-redux";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 import SpellsContainer from "../features/spellsContainer";
-import store from "./store";
+import { getTheme, getThemeObject } from "./themes";
 
 export default function App() {
+  const theme = getThemeObject(useSelector(getTheme));
+
   return (
-    <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <SpellsContainer />
-    </Provider>
+    </ThemeProvider>
   );
 }

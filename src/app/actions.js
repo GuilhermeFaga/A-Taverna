@@ -4,9 +4,8 @@ import * as endpoints from "./endpoints";
 import * as keys from "./storageTypes";
 import { checkStorage } from "./storage";
 
-export const actionTemplate = (param) => ({
-  type: "",
-  payload: {},
+export const switchTheme = () => ({
+  type: actions.SWITCH_THEME,
 });
 
 export const fetchSpellsRequest = () => ({
