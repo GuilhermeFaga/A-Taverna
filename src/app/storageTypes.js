@@ -1,0 +1,1 @@
+export const SPELLS = "SPELLS";
