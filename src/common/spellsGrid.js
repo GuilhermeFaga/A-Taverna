@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-import { fetchSpells, switchTheme } from "../app/actions";
+import { fetchSpells } from "../app/actions";
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
+import SpellCard from "./spellCard";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    backgroundColor: theme.palette.teste,
+  grid: {
+    width: 792,
   },
 }));
 
-function SpellsContainer({ spellsData, fetchSpells }) {
+function SpellsGrid({ spellsData, fetchSpells }) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -19,17 +21,15 @@ function SpellsContainer({ spellsData, fetchSpells }) {
 
   console.log(spellsData);
   return (
-    <div>
-      <button
-        className={classes.button}
-        onClick={() => dispatch(switchTheme())}
-      >
-        Trocar temas
-      </button>
+    <Grid container className={classes.grid} spacing={2}>
       {spellsData.data
-        ? spellsData.data.map((spell) => <p key={spell.name}>{spell.name}</p>)
+        ? spellsData.data.map((spell) => (
+            <Grid item xs={4}>
+              <SpellCard key={spell.name} spell={spell} />
+            </Grid>
+          ))
         : null}
-    </div>
+    </Grid>
   );
 }
 
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSpells: () => dispatch(fetchSpells()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SpellsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SpellsGrid);

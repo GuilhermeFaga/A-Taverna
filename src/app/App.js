@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import SpellsContainer from "../features/spellsContainer";
+import Spells from "../features/spells";
 import { getTheme, getThemeObject } from "./themes";
 
 export default function App() {
@@ -8,7 +8,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SpellsContainer />
+      <div style={{ backgroundColor: theme.palette.secondary.main }}>
+        <Spells />
+      </div>
     </ThemeProvider>
   );
 }

@@ -5,6 +5,17 @@ import * as keys from "./storageTypes";
 const lightTheme = createMuiTheme({
   palette: {
     type: "light",
+    primary: {
+      main: "#000000",
+    },
+    secondary: {
+      main: "#FFFFFF",
+    },
+    text: {
+      primary: "#000000",
+      secondary: "#FFFFFF",
+      gray: "#CCCCCC",
+    },
     teste: "#2F93E0",
   },
 });
@@ -12,6 +23,17 @@ const lightTheme = createMuiTheme({
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
+    primary: {
+      main: "#FFFFFF",
+    },
+    secondary: {
+      main: "#000000",
+    },
+    text: {
+      primary: "#FFFFFF",
+      secondary: "#000000",
+      gray: "#666666",
+    },
     teste: "#F44336",
   },
 });
