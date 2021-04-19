@@ -14,10 +14,33 @@ const useStyles = makeStyles((theme) => ({
       content: "''",
       border: "1px solid",
       borderColor: theme.palette.primary.main,
+      animation: "$fadeIn 0.5s",
       borderRadius: 13,
       height: "107%",
       width: "103%",
       position: "absolute",
+      transition: "opacity 1s",
+    },
+  },
+  false: {
+    "&:after": {
+      content: "''",
+      border: "1px solid",
+      borderColor: theme.palette.primary.main,
+      borderRadius: 13,
+      transition: "opacity 0.2s",
+      height: "107%",
+      width: "103%",
+      position: "absolute",
+      opacity: 0,
+    },
+  },
+  "@keyframes fadeIn": {
+    "0%": {
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
     },
   },
   card: {

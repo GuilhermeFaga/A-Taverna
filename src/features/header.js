@@ -1,6 +1,7 @@
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Grid, Tabs, Tab } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import HeaderNav from "../common/header/headerTabs";
+import GithubButton from "../common/header/githubButton";
 
 const useStyles = makeStyles((theme) => ({
   headerContainer: {
@@ -16,13 +17,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     maxWidth: 1200,
   },
-  tabsContainer: {
-    backgroundColor: theme.palette.secondary.main,
-    zIndex: -2,
-    borderRadius: 10,
-    padding: theme.spacing(1),
-    paddingRight: -theme.spacing(3),
-    boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.1)",
+  rightSide: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-start",
+  },
+  leftSide: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
 }));
 
@@ -32,9 +36,11 @@ export default function Header() {
   return (
     <Grid item className={classes.headerContainer} xs={12}>
       <div className={classes.header}>
-        <div></div>
+        <div className={classes.rightSide}></div>
         <HeaderNav />
-        <div></div>
+        <div className={classes.leftSide}>
+          <GithubButton />
+        </div>
       </div>
     </Grid>
   );
