@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Icon, TextField } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { Card, Icon, IconButton, TextField } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
 import { filterSpells } from "../../app/actions";
 import store from "../../app/store";
 
@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     borderRadius: 10,
     boxShadow: "0px 24px 128px 0px rgba(0,0,0,0.12)",
-    padding: theme.spacing(1.5),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(1),
   },
   textFieldRoot: {
     color: theme.palette.text.secondary,
@@ -37,11 +40,15 @@ const useStyles = makeStyles((theme) => ({
     height: 104,
     marginBottom: theme.spacing(4),
   },
+  disabled: {
+    color: theme.palette.text.gray,
+  },
 }));
 
 export default function SpellsSearch() {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const query = store.getState().spells_filter.query;
+  const query = useSelector((state) => state.spells_filter.query);
 
   return (
     <div className={classes.searchContainer}>
@@ -53,10 +60,16 @@ export default function SpellsSearch() {
           inputProps={{
             className: classes.textField,
           }}
-          onChange={handleInputChange(useDispatch())}
+          onChange={handleInputChange(dispatch)}
           placeholder="Pesquisar"
-          defaultValue={query}
+          value={query}
         />
+        <IconButton
+          color={"secondary"}
+          onClick={handleInputChange(dispatch, true)}
+        >
+          <Icon className={!!query ? null : classes.disabled}>close</Icon>
+        </IconButton>
       </Card>
     </div>
   );
@@ -66,6 +79,7 @@ export function SpellsSearchFix() {
   return <div className={useStyles().fix}></div>;
 }
 
-const handleInputChange = (dispatch) => (event) => {
-  filterSpells(event.target.value)(dispatch);
+const handleInputChange = (dispatch, clear = false) => (event) => {
+  if (clear) filterSpells("")(dispatch);
+  else filterSpells(event.target.value)(dispatch);
 };

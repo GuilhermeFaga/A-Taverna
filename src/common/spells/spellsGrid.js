@@ -21,8 +21,6 @@ function SpellsGrid({ spellsData, fetchSpells }) {
     ? filtered.data.slice(0, filtered.currentPageSize)
     : spellsData.data.slice(0, filtered.currentPageSize);
 
-  console.log("render");
-
   useEffect(() => {
     fetchSpells();
     document.addEventListener(

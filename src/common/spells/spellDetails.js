@@ -72,6 +72,14 @@ export default function SpellDetails() {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="overline" className={classes.lineHeight}>
+            DURAÇÃO
+          </Typography>
+          <Typography variant="body1" className={classes.lineHeight}>
+            {spell.duration}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="overline" className={classes.lineHeight}>
             COMPONENTES
           </Typography>
           <div className={classes.componentsContainer}>
@@ -88,14 +96,6 @@ export default function SpellDetails() {
             <Typography>{spell.materials}</Typography>
           </Grid>
         ) : null}
-        <Grid item xs={12}>
-          <Typography variant="overline" className={classes.lineHeight}>
-            DURAÇÃO
-          </Typography>
-          <Typography variant="body1" className={classes.lineHeight}>
-            {spell.duration}
-          </Typography>
-        </Grid>
       </Grid>
       <Grid item xs={12} className={classes.description}>
         <Typography variant="body2">{spell.description}</Typography>

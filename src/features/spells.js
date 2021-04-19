@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightPanel: {
     marginLeft: theme.spacing(8),
-    maxHeight: "calc(100% - 64px)",
+    maxHeight: "calc(100% - 96px)",
     [theme.breakpoints.down("md")]: {
       marginLeft: theme.spacing(4),
     },

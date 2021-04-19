@@ -13,8 +13,8 @@ const initialState = {
   spells_filter: {
     data: [],
     query: "",
-    currentPageSize: 21,
-    pageSize: 21,
+    currentPageSize: 27,
+    pageSize: 27,
   },
   promises: {
     spells_filter: null,
