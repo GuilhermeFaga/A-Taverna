@@ -38,14 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Spells() {
+export default function LayoutGrid() {
   const classes = useStyles();
 
   return (
     <Grid container className={classes.container}>
-      <Grid item className={classes.header} xs={12}>
-        {/* Header */}
-      </Grid>
+      <Header />
 
       <Grid item className={classes.leftPanel} xl={3} lg={2} md={1}>
         {/* Left side */}

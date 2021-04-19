@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     borderRadius: 10,
     boxShadow: "0px 24px 128px 0px rgba(0,0,0,0.12)",
-    padding: theme.spacing(2),
+    padding: theme.spacing(1.5),
   },
   textFieldRoot: {
     color: theme.palette.text.secondary,
