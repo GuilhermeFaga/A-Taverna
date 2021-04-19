@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import Header from "./header";
@@ -18,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LayoutGrid() {
   const classes = useStyles();
-  const currentPath = useSelector((state) => state.page.path);
 
   return (
     <Grid container className={classes.container}>

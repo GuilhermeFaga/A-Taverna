@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     zIndex: 99,
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(8),
     justifyContent: "space-between",
     maxWidth: 1200,
   },

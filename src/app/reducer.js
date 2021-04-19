@@ -23,7 +23,7 @@ const initialState = {
     theme: initialTheme,
   },
   page: {
-    path: "/magias",
+    path: window.location.pathname,
   },
   user: {},
 };
