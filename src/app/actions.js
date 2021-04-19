@@ -4,6 +4,7 @@ import * as actions from "./actionTypes";
 import * as endpoints from "./endpoints";
 import * as keys from "./storageTypes";
 import { checkStorage } from "./storage";
+import { makeCancelable } from "./helper";
 import * as JsSearch from "js-search";
 
 export const switchTheme = () => ({
@@ -41,10 +42,11 @@ export const spellSelected = (spell) => ({
   },
 });
 
-export const filterSpellsStart = (promise) => ({
+export const filterSpellsStart = (promise, query) => ({
   type: actions.SPELL_FILTER_START,
   payload: {
     promise: promise,
+    query: query,
   },
 });
 
@@ -71,7 +73,7 @@ export const filterSpells = (query) => (dispatch) => {
     })
   );
 
-  dispatch(filterSpellsStart(myPromise));
+  dispatch(filterSpellsStart(myPromise, query));
 
   myPromise.promise
     .then((data) => {
@@ -86,22 +88,9 @@ export const spellsScrollBottom = () => ({
   type: actions.SPELLS_SCROLL_BOTTOM,
 });
 
-const makeCancelable = (promise) => {
-  let hasCanceled_ = false;
-
-  const wrappedPromise = new Promise((resolve, reject) => {
-    promise.then((val) =>
-      hasCanceled_ ? reject({ isCanceled: true }) : resolve(val)
-    );
-    promise.catch((error) =>
-      hasCanceled_ ? reject({ isCanceled: true }) : reject(error)
-    );
-  });
-
-  return {
-    promise: wrappedPromise,
-    cancel() {
-      hasCanceled_ = true;
-    },
-  };
-};
+export const changePath = (path) => ({
+  type: actions.CHANGE_PATH,
+  payload: {
+    path: path,
+  },
+});

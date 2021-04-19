@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, Icon, TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { filterSpells } from "../../app/actions";
+import store from "../../app/store";
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SpellsSearch() {
   const classes = useStyles();
+  const query = store.getState().spells_filter.query;
 
   return (
     <div className={classes.searchContainer}>
@@ -53,6 +55,7 @@ export default function SpellsSearch() {
           }}
           onChange={handleInputChange(useDispatch())}
           placeholder="Pesquisar"
+          defaultValue={query}
         />
       </Card>
     </div>

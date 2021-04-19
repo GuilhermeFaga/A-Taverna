@@ -2,10 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
-import SpellsGrid from "../common/spells/spellsGrid";
-import SpellDetails from "../common/spells/spellDetails";
-import SpellsSearch from "../common/spells/spellsSearch";
+import { Switch, Route } from "react-router-dom";
 import Header from "./header";
+import Spells from "./spells";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -15,46 +14,18 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "start",
     },
   },
-  leftPanel: {
-    marginRight: theme.spacing(8),
-    [theme.breakpoints.down("md")]: {
-      marginRight: theme.spacing(2),
-    },
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  middlePanel: {
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: theme.spacing(2),
-    },
-  },
-  rightPanel: {
-    marginLeft: theme.spacing(8),
-    maxHeight: "calc(100vw - 64px)",
-    [theme.breakpoints.down("md")]: {
-      marginLeft: theme.spacing(4),
-    },
-  },
 }));
 
 export default function LayoutGrid() {
   const classes = useStyles();
+  const currentPath = useSelector((state) => state.page.path);
 
   return (
     <Grid container className={classes.container}>
       <Header />
-
-      <Grid item className={classes.leftPanel} xl={3} lg={2} md={1}>
-        {/* Left side */}
-      </Grid>
-      <Grid item className={classes.middlePanel}>
-        <SpellsSearch />
-        <SpellsGrid />
-      </Grid>
-      <Grid item className={classes.rightPanel} xl={3} lg={2} md="auto">
-        <SpellDetails />
-      </Grid>
+      <Switch>
+        <Route path="/magias" component={Spells} />
+      </Switch>
     </Grid>
   );
 }

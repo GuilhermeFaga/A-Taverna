@@ -3,7 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, Typography, ButtonBase } from "@material-ui/core";
 import { spellSelected } from "../../app/actions";
 import SpellComponent from "./spellComponent";
-import { formatCastingTime, formatRange, formatDuration } from "../helper";
+import {
+  formatCastingTime,
+  formatRange,
+  formatDuration,
+} from "../../app/helper";
 
 const useStyles = makeStyles((theme) => ({
   button: {

@@ -4,7 +4,7 @@ import { fetchSpells, spellsScrollBottom } from "../../app/actions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import SpellCard from "./spellCard";
-import { trackScrolling } from "../helper";
+import { trackScrolling } from "../../app/helper";
 
 const useStyles = makeStyles((theme) => ({
   grid: {

@@ -12,6 +12,7 @@ const initialState = {
   },
   spells_filter: {
     data: [],
+    query: "",
     currentPageSize: 21,
     pageSize: 21,
   },
@@ -20,6 +21,9 @@ const initialState = {
   },
   ui: {
     theme: initialTheme,
+  },
+  page: {
+    path: "/magias",
   },
   user: {},
 };
@@ -42,6 +46,8 @@ export default function reducer(state = initialState, action) {
       return spellFilterEnd(state, action);
     case actions.SPELLS_SCROLL_BOTTOM:
       return spellsScrollBottom(state, action);
+    case actions.CHANGE_PATH:
+      return changePath(state, action);
     default:
       return state;
   }
@@ -82,6 +88,7 @@ const spellFilterStart = (state, action) =>
   produce(state, (draftState) => {
     if (state.promises.spells_filter) state.promises.spells_filter.cancel();
     draftState.promises.spells_filter = action.payload.promise;
+    draftState.spells_filter.query = action.payload.query;
   });
 
 const spellFilterEnd = (state, action) =>
@@ -93,4 +100,9 @@ const spellFilterEnd = (state, action) =>
 const spellsScrollBottom = (state, action) =>
   produce(state, (draftState) => {
     draftState.spells_filter.currentPageSize += state.spells_filter.pageSize;
+  });
+
+const changePath = (state, action) =>
+  produce(state, (draftState) => {
+    draftState.page.path = action.payload.path;
   });

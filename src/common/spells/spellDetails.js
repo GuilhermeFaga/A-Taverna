@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     maxWidth: "inherit",
     height: "-webkit-fill-available",
+    maxHeight: "inherit",
     display: "flex",
     flexDirection: "column",
   },

@@ -1,7 +1,9 @@
 import React from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Tabs, Tab } from "@material-ui/core";
+import { changePath } from "../../app/actions";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   tabsContainer: {
@@ -43,14 +45,14 @@ const HeaderTab = withStyles((theme) => ({
     },
     "&$selected": {
       color: theme.palette.secondary.main,
-      animation: "$colorChange 0.5s",
+      animation: "$transition 0.5s",
     },
     "&:hover": {
       opacity: 1,
     },
   },
   selected: {},
-  "@keyframes colorChange": {
+  "@keyframes transition": {
     "0%": {
       color: theme.palette.primary.main,
     },
@@ -59,19 +61,24 @@ const HeaderTab = withStyles((theme) => ({
     },
   },
 }))((props) => <Tab disableRipple {...props} />);
+
 export default function HeaderNav() {
+  const dispatch = useDispatch();
+  let history = useHistory();
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const value = useSelector((state) => state.page.path);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    dispatch(changePath(newValue));
+    history.push(newValue);
   };
+
   return (
     <div className={classes.tabsContainer}>
       <HeaderTabs value={value} onChange={handleChange}>
-        <HeaderTab label="Classes" />
-        <HeaderTab label="Home" />
-        <HeaderTab label="Magias" />
+        <HeaderTab label="Classes" value="/classes" />
+        <HeaderTab label="Home" value="/" />
+        <HeaderTab label="Magias" value="/magias" />
       </HeaderTabs>
     </div>
   );
