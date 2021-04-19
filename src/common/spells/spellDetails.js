@@ -2,6 +2,7 @@ import { Grid, Typography } from "@material-ui/core";
 import SpellComponent from "./spellComponent";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import { SpellsSearchFix } from "./spellsSearch";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -38,12 +39,13 @@ export default function SpellDetails() {
 
   if (!selectedId || !spells) return null;
 
-  const spell = spells.filter((s) => s.spell_id == selectedId)[0];
+  const spell = spells.filter((s) => s.spell_id === selectedId)[0];
 
   if (!spell) return null;
 
   return (
     <div className={classes.container}>
+      <SpellsSearchFix />
       <Grid container className={classes.topContainer} spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h6" className={classes.lineHeight}>

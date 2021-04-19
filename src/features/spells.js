@@ -1,8 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
-import SpellsGrid from "../common/spellsGrid";
-import SpellDetails from "../common/spellDetails";
+import SpellsGrid from "../common/spells/spellsGrid";
+import SpellDetails from "../common/spells/spellDetails";
+import SpellsSearch from "../common/spells/spellsSearch";
+import Header from "./header";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       justifyContent: "start",
     },
-  },
-  header: {
-    marginBottom: theme.spacing(8),
   },
   leftPanel: {
     marginRight: theme.spacing(8),
@@ -51,6 +51,7 @@ export default function Spells() {
         {/* Left side */}
       </Grid>
       <Grid item className={classes.middlePanel}>
+        <SpellsSearch />
         <SpellsGrid />
       </Grid>
       <Grid item className={classes.rightPanel} xl={3} lg={2} md="auto">

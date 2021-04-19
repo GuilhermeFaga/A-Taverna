@@ -9,10 +9,14 @@ const initialState = {
     loading: false,
     selectedId: null,
     data: [],
-    filter: {
-      loading: false,
-      data: [],
-    },
+  },
+  spells_filter: {
+    data: [],
+    currentPageSize: 21,
+    pageSize: 21,
+  },
+  promises: {
+    spells_filter: null,
   },
   ui: {
     theme: initialTheme,
@@ -32,6 +36,12 @@ export default function reducer(state = initialState, action) {
       return fetchSpellsError(state, action);
     case actions.SPELL_SELECTED:
       return spellSelected(state, action);
+    case actions.SPELL_FILTER_START:
+      return spellFilterStart(state, action);
+    case actions.SPELL_FILTER_END:
+      return spellFilterEnd(state, action);
+    case actions.SPELLS_SCROLL_BOTTOM:
+      return spellsScrollBottom(state, action);
     default:
       return state;
   }
@@ -66,4 +76,21 @@ const fetchSpellsError = (state, action) =>
 const spellSelected = (state, action) =>
   produce(state, (draftState) => {
     draftState.spells.selectedId = action.payload.id;
+  });
+
+const spellFilterStart = (state, action) =>
+  produce(state, (draftState) => {
+    if (state.promises.spells_filter) state.promises.spells_filter.cancel();
+    draftState.promises.spells_filter = action.payload.promise;
+  });
+
+const spellFilterEnd = (state, action) =>
+  produce(state, (draftState) => {
+    draftState.spells_filter.currentPageSize = state.spells_filter.pageSize;
+    draftState.spells_filter.data = action.payload.data;
+  });
+
+const spellsScrollBottom = (state, action) =>
+  produce(state, (draftState) => {
+    draftState.spells_filter.currentPageSize += state.spells_filter.pageSize;
   });

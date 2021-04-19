@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Typography, ButtonBase } from "@material-ui/core";
-import { spellSelected } from "../app/actions";
+import { spellSelected } from "../../app/actions";
 import SpellComponent from "./spellComponent";
+import { formatCastingTime, formatRange, formatDuration } from "../helper";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -13,11 +14,10 @@ const useStyles = makeStyles((theme) => ({
       content: "''",
       border: "1px solid",
       borderColor: theme.palette.primary.main,
-      borderRadius: 12,
-      height: "100%",
-      width: "100%",
+      borderRadius: 13,
+      height: "107%",
+      width: "103%",
       position: "absolute",
-      padding: 2,
     },
   },
   card: {
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
     borderRadius: 10,
     boxShadow: "0px 24px 128px 0px rgba(0,0,0,0.12)",
+    textAlign: "start",
   },
   titleArea: {
     backgroundColor: theme.palette.primary.main,
@@ -49,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
   bottomItem: {
     marginRight: theme.spacing(2),
     whiteSpace: "nowrap",
-    textAlign: "start",
   },
   value: {
     fontWeight: 500,
@@ -102,67 +102,14 @@ export default function SpellCard({ spell }) {
           </div>
           <div className={classes.componentsContainer}>
             {spell.components.map((component) => (
-              <SpellComponent component={component} />
+              <SpellComponent
+                key={"card" + spell.name + component}
+                component={component}
+              />
             ))}
           </div>
         </div>
       </Card>
     </ButtonBase>
   );
-}
-
-function formatCastingTime(ct) {
-  const match = ct.match(/(\d+) ([^,\s]{1,9})/);
-  const value = match[1];
-  const unit = formatCTUnit(match[2]);
-  return value + unit;
-}
-
-function formatCTUnit(unit) {
-  if (unit.startsWith("minuto")) return "'";
-  if (unit.startsWith("hora")) return "h";
-  if (unit === "ação") return " a";
-  if (unit === "ação bônus") return " ab";
-  if (unit === "reação") return " r";
-  return unit;
-}
-
-function formatRange(r) {
-  if (r.includes("metro") || r.includes("quilômetro")) {
-    const match = r.match(/([\d,]+) ([^,\s]{1,15})/);
-    const value = match[1];
-    const unit = formatRUnit(match[2]);
-    return value + unit;
-  }
-  if (r.startsWith("Pessoal")) return " P";
-  if (r.startsWith("Toque")) return "0";
-  return r;
-}
-
-function formatRUnit(unit) {
-  if (unit.startsWith("metro")) return "m";
-  if (unit.startsWith("quilômetro")) return "km";
-  if (unit === "Toque") return "";
-  if (unit === "ação bônus") return " ab";
-  if (unit === "reação") return " r";
-  return unit;
-}
-
-function formatDuration(d) {
-  if (d === "Instantânea") return "I";
-  if (d === "Até ser dissipada") return "D";
-  if (d === "Especial") return "E";
-  if (d.startsWith("Concentração")) return "C";
-  const match = d.match(/(\d+) ([^,\s]{1,9})/);
-  const value = match[1];
-  const unit = formatDUnit(match[2]);
-  return value + unit;
-}
-
-function formatDUnit(unit) {
-  if (unit.startsWith("minuto")) return "'";
-  if (unit.startsWith("hora")) return "h";
-  if (unit.startsWith("dia")) return " d";
-  if (unit.startsWith("rodada")) return " r";
-  return unit;
 }

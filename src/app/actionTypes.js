@@ -11,3 +11,9 @@ export const FETCH_SPELLS_SUCCESS = "fetch/spells/success";
 export const FETCH_SPELLS_ERROR = "fetch/spells/error";
 
 export const SPELL_SELECTED = "spell/selected";
+
+export const SPELL_FILTER_START = "spell/filter/started";
+
+export const SPELL_FILTER_END = "spell/filter/ended";
+
+export const SPELLS_SCROLL_BOTTOM = "spell/scrolledToBottom";
