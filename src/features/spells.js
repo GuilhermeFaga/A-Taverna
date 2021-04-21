@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import SpellsGrid from "../common/spells/spellsGrid";
+import SpellsList from "../common/spells/spellsList";
 import SpellDetails from "../common/spells/spellDetails";
 import SpellsSearch from "../common/spells/spellsSearch";
 
@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(4),
     },
   },
+  spellsList: {
+    height: "calc(100vh - 56px)",
+    paddingBottom: "0 !important",
+    // display: "block",
+    // flexDirection: "column",
+    // height: "100vh",
+  },
 }));
 
 export default function Spells() {
@@ -34,15 +41,17 @@ export default function Spells() {
 
   return (
     <React.Fragment>
-      <Grid item className={classes.leftPanel} xl={3} lg={3} md={1}>
-        {/* Left side */}
+      <Grid item xs={2}>
+        {/* Filters panel */}
       </Grid>
-      <Grid item className={classes.middlePanel}>
-        <SpellsSearch />
-        <SpellsGrid />
+      <Grid item className={classes.spellsList} xs={2}>
+        <SpellsList />
       </Grid>
-      <Grid item className={classes.rightPanel} xl={3} lg={3} md="auto">
+      <Grid item xs={7}>
         <SpellDetails />
+      </Grid>
+      <Grid item xs={1}>
+        {/* Utility panel */}
       </Grid>
     </React.Fragment>
   );

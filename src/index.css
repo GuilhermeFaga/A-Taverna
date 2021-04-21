@@ -1,5 +1,17 @@
-html {
-  overflow-y: scroll;
+#root::-webkit-scrollbar-thumb {
+  background-color: "#CECECE";
+}
+
+#root::-webkit-scrollbar {
+  border-radius: 25px;
+}
+
+#spellsList::-webkit-scrollbar {
+  width: 5px;
+}
+
+#root::-webkit-scrollbar-track {
+  background-color: "transparent";
 }
 
 body {

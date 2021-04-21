@@ -60,16 +60,16 @@ export const filterSpellsEnd = (data) => ({
 export const filterSpells = (query) => (dispatch) => {
   const myPromise = makeCancelable(
     new Promise((resolve, reject) => {
-      const spells = store.getState().spells.data;
+      setTimeout(() => {
+        const spells = store.getState().spells.data;
+        var search = new JsSearch.Search("id");
 
-      var search = new JsSearch.Search("id");
-
-      search.addIndex("name");
-      search.addIndex("type");
-      search.addIndex("description");
-      search.addDocuments(spells);
-
-      resolve(search.search(query));
+        search.addIndex("name");
+        search.addIndex("type");
+        search.addIndex("description");
+        search.addDocuments(spells);
+        resolve(search.search(query));
+      }, 100);
     })
   );
 

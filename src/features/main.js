@@ -8,22 +8,22 @@ import Spells from "./spells";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
-    justifyContent: "center",
-    [theme.breakpoints.down("md")]: {
-      justifyContent: "start",
-    },
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
 }));
 
-export default function LayoutGrid() {
+export default function Main() {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.container}>
+    <React.Fragment>
       <Header />
-      <Switch>
-        <Route path="/" component={Spells} />
-      </Switch>
-    </Grid>
+      <Grid container className={classes.container} spacing={3}>
+        <Switch>
+          <Route path="/" component={Spells} />
+        </Switch>
+      </Grid>
+    </React.Fragment>
   );
 }

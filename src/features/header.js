@@ -1,47 +1,40 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
-import HeaderNav from "../common/header/headerTabs";
 import GithubButton from "../common/header/githubButton";
+import SpellsSearch from "../common/spells/spellsSearch";
+import { Grid, AppBar, Toolbar, Typography } from "@material-ui/core";
+import HeaderTabs from "../common/header/headerTabs";
 
 const useStyles = makeStyles((theme) => ({
-  headerContainer: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  header: {
-    display: "flex",
-    width: "100%",
-    zIndex: 99,
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(8),
-    justifyContent: "space-between",
-    maxWidth: 1200,
-  },
-  rightSide: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-  leftSide: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "flex-end",
+  title: {
     alignItems: "center",
+    display: "flex",
+  },
+  toolbarItens: {
+    alignItems: "center",
+    display: "flex",
   },
 }));
 
 export default function Header() {
   const classes = useStyles();
-
   return (
-    <Grid item className={classes.headerContainer} xs={12}>
-      <div className={classes.header}>
-        <div className={classes.rightSide}></div>
-        <HeaderNav />
-        <div className={classes.leftSide}>
-          <GithubButton />
-        </div>
-      </div>
-    </Grid>
+    <AppBar position="static " elevation={0}>
+      <Toolbar>
+        <Grid container spacing={3}>
+          <Grid item className={classes.title} xs={2}>
+            <Typography variant="h6" className={classes.title}>
+              A Taverna
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <SpellsSearch />
+          </Grid>
+          <Grid item xs={8} className={classes.toolbarItens} justify="flex-end">
+            <HeaderTabs />
+            <GithubButton />
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 }
