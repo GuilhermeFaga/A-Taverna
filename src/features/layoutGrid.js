@@ -22,7 +22,7 @@ export default function LayoutGrid() {
     <Grid container className={classes.container}>
       <Header />
       <Switch>
-        <Route path="/magias" component={Spells} />
+        <Route path="/" component={Spells} />
       </Switch>
     </Grid>
   );

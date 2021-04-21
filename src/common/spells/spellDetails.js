@@ -3,6 +3,8 @@ import SpellComponent from "./spellComponent";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { SpellsSearchFix } from "./spellsSearch";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -40,7 +42,7 @@ export default function SpellDetails() {
 
   if (!selectedId || !spells) return null;
 
-  const spell = spells.filter((s) => s.spell_id === selectedId)[0];
+  const spell = spells.filter((s) => s.id === selectedId)[0];
 
   if (!spell) return null;
 
@@ -52,7 +54,14 @@ export default function SpellDetails() {
           <Typography variant="h6" className={classes.lineHeight}>
             {spell.name}
           </Typography>
-          <Typography variant="caption">{spell.type}</Typography>
+          <Typography
+            style={{
+              fontStyle: "italic",
+            }}
+            variant="caption"
+          >
+            {spell.type}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="overline" className={classes.lineHeight}>
@@ -98,7 +107,11 @@ export default function SpellDetails() {
         ) : null}
       </Grid>
       <Grid item xs={12} className={classes.description}>
-        <Typography variant="body2">{spell.description}</Typography>
+        <Typography variant="body2">
+          <ReactMarkdown remarkPlugins={[gfm]}>
+            {spell.description}
+          </ReactMarkdown>
+        </Typography>
       </Grid>
     </div>
   );

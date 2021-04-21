@@ -76,9 +76,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    overflow: "hidden",
+    whiteSpace: "pre",
   },
   type: {
     color: theme.palette.text.gray,
+    fontStyle: "italic",
   },
   bottomArea: {
     color: theme.palette.text.primary,
@@ -106,8 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SpellCard({ spell }) {
   const dispatch = useDispatch();
-  const selected =
-    spell.spell_id === useSelector((state) => state.spells.selectedId);
+  const selected = spell.id === useSelector((state) => state.spells.selectedId);
   const classes = useStyles();
 
   return (

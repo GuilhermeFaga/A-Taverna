@@ -6,52 +6,78 @@ export function formatCastingTime(ct) {
 }
 
 function formatCTUnit(unit) {
-  if (unit.startsWith("minuto")) return "'";
-  if (unit.startsWith("hora")) return "h";
-  if (unit === "ação") return " a";
-  if (unit === "ação bônus") return " ab";
-  if (unit === "reação") return " r";
-  return unit;
+  try {
+    if (unit.startsWith("minuto")) return "'";
+    if (unit.startsWith("hora")) return "h";
+    if (unit === "ação") return " a";
+    if (unit === "ação bônus") return " ab";
+    if (unit === "reação") return " r";
+    return unit;
+  } catch (e) {
+    console.error(unit, e);
+    return "";
+  }
 }
 
 export function formatRange(r) {
-  if (r.includes("metro") || r.includes("quilômetro")) {
-    const match = r.match(/([\d,]+) ([^,\s]{1,15})/);
-    const value = match[1];
-    const unit = formatRUnit(match[2]);
-    return value + unit;
+  try {
+    if (r.includes("metro") || r.includes("quilômetro")) {
+      const match = r.match(/([\d,]+) ([^,\s]{1,15})/);
+      const value = match[1];
+      const unit = formatRUnit(match[2]);
+      return value + unit;
+    }
+    if (r.startsWith("Pessoal")) return " P";
+    if (r.startsWith("Toque")) return "0";
+    return r;
+  } catch (e) {
+    console.error(r, e);
+    return "";
   }
-  if (r.startsWith("Pessoal")) return " P";
-  if (r.startsWith("Toque")) return "0";
-  return r;
 }
 
 function formatRUnit(unit) {
-  if (unit.startsWith("metro")) return "m";
-  if (unit.startsWith("quilômetro")) return "km";
-  if (unit === "Toque") return "";
-  if (unit === "ação bônus") return " ab";
-  if (unit === "reação") return " r";
-  return unit;
+  try {
+    if (unit.startsWith("metro")) return "m";
+    if (unit.startsWith("quilômetro")) return "km";
+    if (unit === "Toque") return "";
+    if (unit === "ação bônus") return " ab";
+    if (unit === "reação") return " r";
+    return unit;
+  } catch (e) {
+    console.error(unit, e);
+    return "";
+  }
 }
 
 export function formatDuration(d) {
-  if (d === "Instantânea") return "I";
-  if (d === "Até ser dissipada") return "D";
-  if (d === "Especial") return "E";
-  if (d.startsWith("Concentração")) return "C";
-  const match = d.match(/(\d+) ([^,\s]{1,9})/);
-  const value = match[1];
-  const unit = formatDUnit(match[2]);
-  return value + unit;
+  try {
+    if (d === "Instantânea") return "I";
+    if (d === "Até ser dissipada") return "D";
+    if (d === "Especial") return "E";
+    if (d.startsWith("Concentração")) return "C";
+    if (d === "Até ser dissipada ou ativada") return "D/A";
+    const match = d.match(/(\d+) ([^,\s]{1,9})/);
+    const value = match[1];
+    const unit = formatDUnit(match[2]);
+    return value + unit;
+  } catch (e) {
+    console.error(d, e);
+    return "";
+  }
 }
 
 function formatDUnit(unit) {
-  if (unit.startsWith("minuto")) return "'";
-  if (unit.startsWith("hora")) return "h";
-  if (unit.startsWith("dia")) return " d";
-  if (unit.startsWith("rodada")) return " r";
-  return unit;
+  try {
+    if (unit.startsWith("minuto")) return "'";
+    if (unit.startsWith("hora")) return "h";
+    if (unit.startsWith("dia")) return " d";
+    if (unit.startsWith("rodada")) return " r";
+    return unit;
+  } catch (e) {
+    console.error(unit, e);
+    return "";
+  }
 }
 
 export const trackScrolling = (dispatch, action, elemId) => () => {

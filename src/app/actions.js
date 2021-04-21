@@ -38,7 +38,7 @@ export const fetchSpells = () => (dispatch) => {
 export const spellSelected = (spell) => ({
   type: actions.SPELL_SELECTED,
   payload: {
-    id: spell.spell_id,
+    id: spell.id,
   },
 });
 
@@ -62,7 +62,7 @@ export const filterSpells = (query) => (dispatch) => {
     new Promise((resolve, reject) => {
       const spells = store.getState().spells.data;
 
-      var search = new JsSearch.Search("spell_id");
+      var search = new JsSearch.Search("id");
 
       search.addIndex("name");
       search.addIndex("type");

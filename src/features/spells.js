@@ -34,14 +34,14 @@ export default function Spells() {
 
   return (
     <React.Fragment>
-      <Grid item className={classes.leftPanel} xl={3} lg={2} md={1}>
+      <Grid item className={classes.leftPanel} xl={3} lg={3} md={1}>
         {/* Left side */}
       </Grid>
       <Grid item className={classes.middlePanel}>
         <SpellsSearch />
         <SpellsGrid />
       </Grid>
-      <Grid item className={classes.rightPanel} xl={3} lg={2} md="auto">
+      <Grid item className={classes.rightPanel} xl={3} lg={3} md="auto">
         <SpellDetails />
       </Grid>
     </React.Fragment>
