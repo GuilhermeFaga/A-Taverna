@@ -5,25 +5,14 @@ import { filterSpells } from "../../app/actions";
 import store from "../../app/store";
 
 const useStyles = makeStyles((theme) => ({
-  grid: {
-    width: 792,
-  },
   searchContainer: {
     display: "flex",
     justifyContent: "center",
-    marginBottom: theme.spacing(4),
-  },
-  search: {
     display: "flex",
     alignItems: "center",
-    width: 250,
     backgroundColor: theme.palette.primary.main,
-    borderRadius: 10,
-    boxShadow: "0px 24px 128px 0px rgba(0,0,0,0.12)",
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
   },
   textFieldRoot: {
     color: theme.palette.text.secondary,
@@ -31,14 +20,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   textField: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.contrastText,
     "&before": {
       border: "1px solid rgba(255, 255, 255, 0.42)",
     },
   },
   fix: {
-    height: 104,
-    marginBottom: theme.spacing(4),
+    height: 90,
   },
   disabled: {
     color: theme.palette.text.gray,
@@ -52,25 +40,23 @@ export default function SpellsSearch() {
 
   return (
     <div className={classes.searchContainer}>
-      <Card className={classes.search}>
-        <Icon color="secondary">search</Icon>
-        <TextField
-          color="secondary"
-          classes={{ root: classes.textFieldRoot }}
-          inputProps={{
-            className: classes.textField,
-          }}
-          onChange={handleInputChange(dispatch)}
-          placeholder="Pesquisar"
-          value={query}
-        />
-        <IconButton
-          color={"secondary"}
-          onClick={handleInputChange(dispatch, true)}
-        >
-          <Icon className={!!query ? null : classes.disabled}>close</Icon>
-        </IconButton>
-      </Card>
+      <Icon color="secondary">search</Icon>
+      <TextField
+        color="secondary"
+        classes={{ root: classes.textFieldRoot }}
+        inputProps={{
+          className: classes.textField,
+        }}
+        onChange={handleInputChange(dispatch)}
+        placeholder="Pesquisar"
+        value={query}
+      />
+      <IconButton
+        color={"secondary"}
+        onClick={handleInputChange(dispatch, true)}
+      >
+        <Icon className={!!query ? null : classes.disabled}>close</Icon>
+      </IconButton>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import gfm from "remark-gfm";
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    paddingTop: theme.spacing(3),
     position: "fixed",
     maxWidth: "inherit",
     height: "-webkit-fill-available",
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     marginTop: theme.spacing(2),
-    marginBottom: 80,
+    marginBottom: 64,
     overflowY: "auto",
     overscrollBehavior: "contain",
   },
@@ -48,7 +49,6 @@ export default function SpellDetails() {
 
   return (
     <div className={classes.container}>
-      <SpellsSearchFix />
       <Grid container className={classes.topContainer} spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h6" className={classes.lineHeight}>
@@ -63,7 +63,7 @@ export default function SpellDetails() {
             {spell.type}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={3}>
           <Typography variant="overline" className={classes.lineHeight}>
             TEMPO DE CONJURAÇÃO
           </Typography>
@@ -71,7 +71,7 @@ export default function SpellDetails() {
             {spell.casting_time}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={3}>
           <Typography variant="overline" className={classes.lineHeight}>
             ALCANCE
           </Typography>
@@ -79,7 +79,7 @@ export default function SpellDetails() {
             {spell.range}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={3}>
           <Typography variant="overline" className={classes.lineHeight}>
             DURAÇÃO
           </Typography>
@@ -87,7 +87,7 @@ export default function SpellDetails() {
             {spell.duration}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={3}>
           <Typography variant="overline" className={classes.lineHeight}>
             COMPONENTES
           </Typography>
@@ -98,7 +98,7 @@ export default function SpellDetails() {
           </div>
         </Grid>
         {spell.materiais ? (
-          <Grid item xs={12}>
+          <Grid item xs={3}>
             <Typography variant="overline" className={classes.lineHeight}>
               MATERIAIS
             </Typography>
@@ -107,7 +107,7 @@ export default function SpellDetails() {
         ) : null}
       </Grid>
       <Grid item xs={12} className={classes.description}>
-        <Typography variant="body2">
+        <Typography variant="body1">
           <ReactMarkdown remarkPlugins={[gfm]}>
             {spell.description}
           </ReactMarkdown>

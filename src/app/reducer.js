@@ -7,7 +7,7 @@ import produce from "immer";
 const initialState = {
   spells: {
     loading: false,
-    selectedId: null,
+    selectedId: 1,
     data: [],
   },
   spells_filter: {

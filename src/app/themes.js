@@ -23,11 +23,23 @@ const lightTheme = createMuiTheme({
       main: "#FFFFFF",
     },
     text: {
-      primary: "#000000",
-      secondary: "#FFFFFF",
-      gray: "#CCCCCC",
+      primary: "#212121",
+      secondary: "#757575",
+      contrastText: "#FFFFFF",
     },
     teste: "#2F93E0",
+  },
+  scrollbarStyle: {
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#CECECE",
+      borderRadius: 25,
+    },
+    "&::-webkit-scrollbar": {
+      width: 5,
+    },
+    "&::-webkit-scrollbar-track": {
+      backgroundColor: "transparent",
+    },
   },
 });
 

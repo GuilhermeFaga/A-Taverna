@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   components: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.contrastText,
     marginRight: theme.spacing(1),
     textAlign: "center",
     borderRadius: 100,

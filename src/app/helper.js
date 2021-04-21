@@ -1,8 +1,13 @@
 export function formatCastingTime(ct) {
-  const match = ct.match(/(\d+) ([^,\s]{1,9})/);
-  const value = match[1];
-  const unit = formatCTUnit(match[2]);
-  return value + unit;
+  try {
+    const match = ct.match(/(\d+) ([^,\s]{1,9})/);
+    const value = match[1];
+    const unit = formatCTUnit(match[2]);
+    return value + unit;
+  } catch (e) {
+    console.error(ct, e);
+    return "";
+  }
 }
 
 function formatCTUnit(unit) {
