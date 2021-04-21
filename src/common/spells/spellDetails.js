@@ -2,9 +2,9 @@ import { Grid, Typography } from "@material-ui/core";
 import SpellComponent from "./spellComponent";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { SpellsSearchFix } from "./spellsSearch";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
+import { useAnimation, motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   lineHeight: {
     lineHeight: "1.2",
   },
+  textSecondary: {
+    color: theme.palette.text.secondary,
+  },
   componentsContainer: {
     display: "flex",
     flexDirection: "row",
@@ -36,10 +39,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const container = {
+  enter: {
+    opacity: 0.2,
+    transition: {
+      duration: 0,
+    },
+  },
+  settle: {
+    x: 0,
+    opacity: 1,
+  },
+};
+
+async function sequence(controls) {
+  await controls.start("enter");
+  return await controls.start("settle");
+}
+
 export default function SpellDetails() {
   const spells = useSelector((state) => state.spells.data);
   const selectedId = useSelector((state) => state.spells.selectedId);
   const classes = useStyles();
+  const controls = useAnimation();
 
   if (!selectedId || !spells) return null;
 
@@ -47,8 +69,14 @@ export default function SpellDetails() {
 
   if (!spell) return null;
 
+  sequence(controls);
+
   return (
-    <div className={classes.container}>
+    <motion.div
+      className={classes.container}
+      variants={container}
+      animate={controls}
+    >
       <Grid container className={classes.topContainer} spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h6" className={classes.lineHeight}>
@@ -58,13 +86,17 @@ export default function SpellDetails() {
             style={{
               fontStyle: "italic",
             }}
+            className={classes.textSecondary}
             variant="caption"
           >
             {spell.type}
           </Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography variant="overline" className={classes.lineHeight}>
+          <Typography
+            variant="overline"
+            className={classes.lineHeight + " " + classes.textSecondary}
+          >
             TEMPO DE CONJURAÇÃO
           </Typography>
           <Typography variant="body1" className={classes.lineHeight}>
@@ -72,7 +104,10 @@ export default function SpellDetails() {
           </Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography variant="overline" className={classes.lineHeight}>
+          <Typography
+            variant="overline"
+            className={classes.lineHeight + " " + classes.textSecondary}
+          >
             ALCANCE
           </Typography>
           <Typography variant="body1" className={classes.lineHeight}>
@@ -80,7 +115,10 @@ export default function SpellDetails() {
           </Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography variant="overline" className={classes.lineHeight}>
+          <Typography
+            variant="overline"
+            className={classes.lineHeight + " " + classes.textSecondary}
+          >
             DURAÇÃO
           </Typography>
           <Typography variant="body1" className={classes.lineHeight}>
@@ -88,7 +126,10 @@ export default function SpellDetails() {
           </Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography variant="overline" className={classes.lineHeight}>
+          <Typography
+            variant="overline"
+            className={classes.lineHeight + " " + classes.textSecondary}
+          >
             COMPONENTES
           </Typography>
           <div className={classes.componentsContainer}>
@@ -99,7 +140,10 @@ export default function SpellDetails() {
         </Grid>
         {spell.materiais ? (
           <Grid item xs={3}>
-            <Typography variant="overline" className={classes.lineHeight}>
+            <Typography
+              variant="overline"
+              className={classes.lineHeight + " " + classes.textSecondary}
+            >
               MATERIAIS
             </Typography>
             <Typography>{spell.materials}</Typography>
@@ -113,6 +157,6 @@ export default function SpellDetails() {
           </ReactMarkdown>
         </Typography>
       </Grid>
-    </div>
+    </motion.div>
   );
 }

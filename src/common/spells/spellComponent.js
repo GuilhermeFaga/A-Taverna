@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import { useAnimation, motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   components: {
@@ -13,13 +14,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+async function sequence(controls) {
+  await controls.start("enter");
+  return await controls.start("settle");
+}
+
 export default function SpellComponent({ component }) {
   const classes = useStyles();
+  const controls = useAnimation();
+  const delay = ["V", "S", "M", "F", "FD", "XD"].indexOf(component);
+
+  const container = {
+    enter: {
+      scale: 0,
+      transition: {
+        duration: 0,
+      },
+    },
+    settle: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        delay: delay * 0.05,
+        duration: 0.1,
+      },
+    },
+  };
+
+  sequence(controls);
+
   return (
-    <div>
-      <div className={classes.components}>
-        <Typography variant="body1">{component}</Typography>
-      </div>
-    </div>
+    <motion.div
+      className={classes.components}
+      variants={container}
+      animate={controls}
+    >
+      <Typography variant="body1">{component}</Typography>
+    </motion.div>
   );
 }

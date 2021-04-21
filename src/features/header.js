@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme) => ({
   toolbarItens: {
     alignItems: "center",
     display: "flex",
+    justifyContent: "flex-end",
   },
 }));
 
 export default function Header() {
   const classes = useStyles();
   return (
-    <AppBar position="static " elevation={0}>
+    <AppBar position="static" elevation={0}>
       <Toolbar>
         <Grid container spacing={3}>
           <Grid item className={classes.title} xs={2}>
@@ -29,7 +30,7 @@ export default function Header() {
           <Grid item xs={2}>
             <SpellsSearch />
           </Grid>
-          <Grid item xs={8} className={classes.toolbarItens} justify="flex-end">
+          <Grid item xs={8} className={classes.toolbarItens}>
             <HeaderTabs />
             <GithubButton />
           </Grid>

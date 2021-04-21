@@ -6,6 +6,7 @@ import { ListItem, ListItemText } from "@material-ui/core";
 import { AutoSizer } from "react-virtualized";
 import { spellSelected } from "../../app/actions";
 import { FixedSizeList as List } from "react-window";
+import { useAnimation, motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -33,7 +34,7 @@ function SpellsList({ spellsData, fetchSpells }) {
   }, [fetchSpells]);
 
   return (
-    <React.Fragment className={classes.root}>
+    <React.Fragment>
       <AutoSizer>
         {({ height, width }) => (
           <List
@@ -55,6 +56,7 @@ function SpellsList({ spellsData, fetchSpells }) {
 
 function Row({ data, index, style }) {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const selected =
     data[index].id === useSelector((state) => state.spells.selectedId);
 
