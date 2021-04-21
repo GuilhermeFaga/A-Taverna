@@ -3,7 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, Typography, ButtonBase } from "@material-ui/core";
 import { spellSelected } from "../../app/actions";
 import SpellComponent from "./spellComponent";
-import { formatCastingTime, formatRange, formatDuration } from "../helper";
+import {
+  formatCastingTime,
+  formatRange,
+  formatDuration,
+} from "../../app/helper";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -12,31 +16,72 @@ const useStyles = makeStyles((theme) => ({
   true: {
     "&:after": {
       content: "''",
-      border: "1px solid",
+      border: "2px solid",
+      borderColor: theme.palette.primary.main,
+      animation: "$fadeIn 0.5s",
+      borderRadius: 13,
+      height: "100%",
+      width: "100%",
+      padding: 2,
+      position: "absolute",
+      transition: "opacity 1s",
+    },
+  },
+  false: {
+    "&:after": {
+      content: "''",
+      border: "2px solid",
       borderColor: theme.palette.primary.main,
       borderRadius: 13,
-      height: "107%",
-      width: "103%",
+      transition: "opacity 0.2s",
+      height: "100%",
+      width: "100%",
+      padding: 2,
       position: "absolute",
+      opacity: 0,
+    },
+  },
+  "@keyframes fadeIn": {
+    "0%": {
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
     },
   },
   card: {
     width: 250,
     backgroundColor: theme.palette.secondary.main,
     borderRadius: 10,
-    boxShadow: "0px 24px 128px 0px rgba(0,0,0,0.12)",
+    boxShadow: "none",
+    filter: "drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.04))",
     textAlign: "start",
+    overflow: "visible",
+    "&:after": {
+      content: "''",
+      border: "2px solid",
+      borderRadius: 10,
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
   },
   titleArea: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.text.secondary,
+    borderRadius: "10px 10px 0px 0px",
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    overflow: "hidden",
+    whiteSpace: "pre",
   },
   type: {
     color: theme.palette.text.gray,
+    fontStyle: "italic",
   },
   bottomArea: {
     color: theme.palette.text.primary,
@@ -64,8 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SpellCard({ spell }) {
   const dispatch = useDispatch();
-  const selected =
-    spell.spell_id === useSelector((state) => state.spells.selectedId);
+  const selected = spell.id === useSelector((state) => state.spells.selectedId);
   const classes = useStyles();
 
   return (

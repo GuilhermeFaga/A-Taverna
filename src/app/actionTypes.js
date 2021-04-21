@@ -17,3 +17,5 @@ export const SPELL_FILTER_START = "spell/filter/started";
 export const SPELL_FILTER_END = "spell/filter/ended";
 
 export const SPELLS_SCROLL_BOTTOM = "spell/scrolledToBottom";
+
+export const CHANGE_PATH = "path/changed";

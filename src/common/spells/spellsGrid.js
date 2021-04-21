@@ -4,7 +4,7 @@ import { fetchSpells, spellsScrollBottom } from "../../app/actions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import SpellCard from "./spellCard";
-import { trackScrolling } from "../helper";
+import { trackScrolling } from "../../app/helper";
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -20,8 +20,6 @@ function SpellsGrid({ spellsData, fetchSpells }) {
   const spells = filtered.data.length
     ? filtered.data.slice(0, filtered.currentPageSize)
     : spellsData.data.slice(0, filtered.currentPageSize);
-
-  console.log("render");
 
   useEffect(() => {
     fetchSpells();

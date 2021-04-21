@@ -1,20 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import SpellsGrid from "../common/spells/spellsGrid";
 import SpellDetails from "../common/spells/spellDetails";
 import SpellsSearch from "../common/spells/spellsSearch";
-import Header from "./header";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    width: "100%",
-    justifyContent: "center",
-    [theme.breakpoints.down("md")]: {
-      justifyContent: "start",
-    },
-  },
   leftPanel: {
     marginRight: theme.spacing(8),
     [theme.breakpoints.down("md")]: {
@@ -31,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightPanel: {
     marginLeft: theme.spacing(8),
-    maxHeight: "calc(100vw - 64px)",
+    maxHeight: "calc(100% - 96px)",
     [theme.breakpoints.down("md")]: {
       marginLeft: theme.spacing(4),
     },
@@ -42,21 +33,17 @@ export default function Spells() {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.container}>
-      <Grid item className={classes.header} xs={12}>
-        {/* Header */}
-      </Grid>
-
-      <Grid item className={classes.leftPanel} xl={3} lg={2} md={1}>
+    <React.Fragment>
+      <Grid item className={classes.leftPanel} xl={3} lg={3} md={1}>
         {/* Left side */}
       </Grid>
       <Grid item className={classes.middlePanel}>
         <SpellsSearch />
         <SpellsGrid />
       </Grid>
-      <Grid item className={classes.rightPanel} xl={3} lg={2} md="auto">
+      <Grid item className={classes.rightPanel} xl={3} lg={3} md="auto">
         <SpellDetails />
       </Grid>
-    </Grid>
+    </React.Fragment>
   );
 }
