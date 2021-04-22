@@ -35,6 +35,30 @@ export const fetchSpells = () => (dispatch) => {
     .catch((error) => dispatch(fetchSpellsSuccess(error.message)));
 };
 
+export const fetchClassSpellsRequest = () => ({
+  type: actions.FETCH_CLASS_SPELLS_REQUEST,
+});
+
+export const fetchClassSpellsSuccess = (class_spells) => ({
+  type: actions.FETCH_CLASS_SPELLS_SUCCESS,
+  payload: {
+    data: class_spells,
+  },
+});
+
+export const fetchClassSpellsError = (error) => ({
+  type: actions.FETCH_CLASS_SPELLS_ERROR,
+});
+
+export const fetchClassSpells = () => (dispatch) => {
+  dispatch(fetchClassSpellsRequest());
+  if (checkStorage(keys.CLASS_SPELLS)) return;
+  axios
+    .get(endpoints.class_spells)
+    .then((response) => dispatch(fetchClassSpellsSuccess(response.data)))
+    .catch((error) => dispatch(fetchClassSpellsSuccess(error.message)));
+};
+
 export const spellSelected = (spell) => ({
   type: actions.SPELL_SELECTED,
   payload: {
@@ -83,10 +107,6 @@ export const filterSpells = (query) => (dispatch) => {
     })
     .catch(() => {});
 };
-
-export const spellsScrollBottom = () => ({
-  type: actions.SPELLS_SCROLL_BOTTOM,
-});
 
 export const changePath = (path) => ({
   type: actions.CHANGE_PATH,

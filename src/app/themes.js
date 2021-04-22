@@ -22,6 +22,10 @@ const lightTheme = createMuiTheme({
     secondary: {
       main: "#FFFFFF",
     },
+    background: {
+      paper: "#FFFFFF",
+      default: "#F5F5F5",
+    },
     text: {
       primary: "#212121",
       secondary: "#757575",
@@ -38,7 +42,7 @@ const lightTheme = createMuiTheme({
       width: 5,
     },
     "&::-webkit-scrollbar-track": {
-      backgroundColor: "transparent",
+      backgroundColor: "#EBEBEB",
     },
   },
 });

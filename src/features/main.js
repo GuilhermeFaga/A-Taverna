@@ -8,8 +8,6 @@ import Spells from "./spells";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
   },
 }));
 
@@ -19,7 +17,7 @@ export default function Main() {
   return (
     <React.Fragment>
       <Header />
-      <Grid container className={classes.container} spacing={3}>
+      <Grid container className={classes.container}>
         <Switch>
           <Route path="/" component={Spells} />
         </Switch>

@@ -4,11 +4,13 @@ import Main from "../features/main";
 import { getTheme, getThemeObject } from "./themes";
 
 export default function App() {
-  const theme = useSelector(getTheme);
+  const theme = getThemeObject(useSelector(getTheme));
 
   return (
-    <ThemeProvider theme={getThemeObject(theme)}>
+    <ThemeProvider theme={theme}>
+      {/* <div style={{ backgroundColor: theme.palette.background.default }}> */}
       <Main />
+      {/* </div> */}
     </ThemeProvider>
   );
 }

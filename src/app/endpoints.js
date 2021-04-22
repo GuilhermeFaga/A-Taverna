@@ -3,4 +3,6 @@ const baseEndpoint =
 
 export const spells = baseEndpoint + "/spells/";
 
+export const class_spells = baseEndpoint + "/class_spells/";
+
 export const github = "https://github.com/GuilhermeFaga/A-Taverna";

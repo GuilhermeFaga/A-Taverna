@@ -1,38 +1,26 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import SpellsList from "../common/spells/spellsList";
 import SpellDetails from "../common/spells/spellDetails";
-import SpellsSearch from "../common/spells/spellsSearch";
+import SpellsFilters from "../common/spells/spellsFilters";
 
 const useStyles = makeStyles((theme) => ({
-  leftPanel: {
-    marginRight: theme.spacing(8),
-    [theme.breakpoints.down("md")]: {
-      marginRight: theme.spacing(2),
-    },
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  middlePanel: {
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: theme.spacing(2),
-    },
-  },
-  rightPanel: {
-    marginLeft: theme.spacing(8),
-    maxHeight: "calc(100% - 96px)",
-    [theme.breakpoints.down("md")]: {
-      marginLeft: theme.spacing(4),
-    },
-  },
   spellsList: {
-    height: "calc(100vh - 56px)",
+    height: "calc(100vh - 64px)",
     paddingBottom: "0 !important",
-    // display: "block",
-    // flexDirection: "column",
-    // height: "100vh",
+  },
+  test2: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
+  },
+  test: {
+    width: "-webkit-fill-available",
+    height: "100%",
+    position: "absolute",
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
 }));
 
@@ -42,7 +30,7 @@ export default function Spells() {
   return (
     <React.Fragment>
       <Grid item xs={2}>
-        {/* Filters panel */}
+        <SpellsFilters />
       </Grid>
       <Grid item className={classes.spellsList} xs={2}>
         <SpellsList />
@@ -51,7 +39,9 @@ export default function Spells() {
         <SpellDetails />
       </Grid>
       <Grid item xs={1}>
-        {/* Utility panel */}
+        <div className={classes.test2}>
+          <Paper elevation={3} className={classes.test} square></Paper>
+        </div>
       </Grid>
     </React.Fragment>
   );

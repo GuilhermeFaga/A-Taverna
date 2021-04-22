@@ -1,22 +1,27 @@
-#root::-webkit-scrollbar-thumb {
-  background-color: "#CECECE";
-}
-
-#root::-webkit-scrollbar {
-  border-radius: 25px;
-}
-
-#spellsList::-webkit-scrollbar {
-  width: 5px;
-}
-
-#root::-webkit-scrollbar-track {
-  background-color: "transparent";
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-width: 1px;
+  border-color: #e7e7e7;
+  border-style: solid;
+}
+
+table td,
+table th {
+  border-width: 1px;
+  border-color: #e7e7e7;
+  border-style: solid;
+  padding: 5px;
+  text-align: start;
+}
+
+table thead {
+  background-color: #e7e7e7;
 }

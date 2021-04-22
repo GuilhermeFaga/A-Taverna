@@ -6,8 +6,13 @@ import produce from "immer";
 
 const initialState = {
   spells: {
-    loading: false,
+    loading: true,
     selectedId: 1,
+    data: [],
+  },
+  class_spells: {
+    loading: true,
+    selected: [],
     data: [],
   },
   spells_filter: {
@@ -38,6 +43,12 @@ export default function reducer(state = initialState, action) {
       return fetchSpellsSuccess(state, action);
     case actions.FETCH_SPELLS_ERROR:
       return fetchSpellsError(state, action);
+    case actions.FETCH_CLASS_SPELLS_REQUEST:
+      return fetchClassSpellsRequest(state, action);
+    case actions.FETCH_CLASS_SPELLS_SUCCESS:
+      return fetchClassSpellsSuccess(state, action);
+    case actions.FETCH_CLASS_SPELLS_ERROR:
+      return fetchClassSpellsError(state, action);
     case actions.SPELL_SELECTED:
       return spellSelected(state, action);
     case actions.SPELL_FILTER_START:
@@ -62,9 +73,10 @@ const switchTheme = (state, action) =>
 
 const fetchSpellsRequest = (state, action) =>
   produce(state, (draftState) => {
-    if (checkStorage(keys.SPELLS))
+    if (checkStorage(keys.SPELLS)) {
       draftState.spells.data = readFromStorage(keys.SPELLS);
-    else draftState.spells.loading = true;
+      draftState.spells.loading = false;
+    } else draftState.spells.loading = true;
   });
 
 const fetchSpellsSuccess = (state, action) =>
@@ -77,6 +89,26 @@ const fetchSpellsSuccess = (state, action) =>
 const fetchSpellsError = (state, action) =>
   produce(state, (draftState) => {
     draftState.spells.loading = false;
+  });
+
+const fetchClassSpellsRequest = (state, action) =>
+  produce(state, (draftState) => {
+    if (checkStorage(keys.CLASS_SPELLS)) {
+      draftState.class_spells.data = readFromStorage(keys.CLASS_SPELLS);
+      draftState.class_spells.loading = false;
+    } else draftState.class_spells.loading = true;
+  });
+
+const fetchClassSpellsSuccess = (state, action) =>
+  produce(state, (draftState) => {
+    draftState.class_spells.loading = false;
+    draftState.class_spells.data = action.payload.data;
+    writeToStorage(keys.CLASS_SPELLS, action.payload.data);
+  });
+
+const fetchClassSpellsError = (state, action) =>
+  produce(state, (draftState) => {
+    draftState.class_spells.loading = false;
   });
 
 const spellSelected = (state, action) =>

@@ -8,19 +8,25 @@ import { useAnimation, motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    paddingTop: theme.spacing(3),
-    position: "fixed",
-    maxWidth: "inherit",
-    height: "-webkit-fill-available",
-    maxHeight: "inherit",
+    height: "100%",
+    backgroundColor: theme.palette.background.default,
+  },
+  motion: {
+    height: `calc(100% - ${theme.spacing(3)}px)`,
     display: "flex",
     flexDirection: "column",
+    paddingTop: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
   },
   topContainer: {
     height: "min-content",
+    paddingRight: theme.spacing(3),
   },
   lineHeight: {
     lineHeight: "1.2",
+    "&:first-letter": {
+      textTransform: "uppercase",
+    },
   },
   textSecondary: {
     color: theme.palette.text.secondary,
@@ -32,10 +38,17 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
   },
   description: {
+    ...theme.scrollbarStyle,
+    paddingRight: theme.spacing(3),
+    position: "relative",
+    height: "100%",
     marginTop: theme.spacing(2),
-    marginBottom: 64,
     overflowY: "auto",
     overscrollBehavior: "contain",
+  },
+  descriptionText: {
+    position: "absolute",
+    paddingRight: theme.spacing(3),
   },
 }));
 
@@ -72,91 +85,99 @@ export default function SpellDetails() {
   sequence(controls);
 
   return (
-    <motion.div
-      className={classes.container}
-      variants={container}
-      animate={controls}
-    >
-      <Grid container className={classes.topContainer} spacing={1}>
-        <Grid item xs={12}>
-          <Typography variant="h6" className={classes.lineHeight}>
-            {spell.name}
-          </Typography>
-          <Typography
-            style={{
-              fontStyle: "italic",
-            }}
-            className={classes.textSecondary}
-            variant="caption"
-          >
-            {spell.type}
-          </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography
-            variant="overline"
-            className={classes.lineHeight + " " + classes.textSecondary}
-          >
-            TEMPO DE CONJURAÇÃO
-          </Typography>
-          <Typography variant="body1" className={classes.lineHeight}>
-            {spell.casting_time}
-          </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography
-            variant="overline"
-            className={classes.lineHeight + " " + classes.textSecondary}
-          >
-            ALCANCE
-          </Typography>
-          <Typography variant="body1" className={classes.lineHeight}>
-            {spell.range}
-          </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography
-            variant="overline"
-            className={classes.lineHeight + " " + classes.textSecondary}
-          >
-            DURAÇÃO
-          </Typography>
-          <Typography variant="body1" className={classes.lineHeight}>
-            {spell.duration}
-          </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography
-            variant="overline"
-            className={classes.lineHeight + " " + classes.textSecondary}
-          >
-            COMPONENTES
-          </Typography>
-          <div className={classes.componentsContainer}>
-            {spell.components.map((component) => (
-              <SpellComponent component={component} />
-            ))}
-          </div>
-        </Grid>
-        {spell.materiais ? (
+    <div className={classes.container}>
+      <motion.div
+        className={classes.motion}
+        variants={container}
+        animate={controls}
+      >
+        <Grid container className={classes.topContainer} spacing={1}>
+          <Grid item xs={12}>
+            <Typography variant="h6" className={classes.lineHeight}>
+              {spell.name}
+            </Typography>
+            <Typography
+              style={{
+                fontStyle: "italic",
+              }}
+              className={classes.textSecondary}
+              variant="caption"
+            >
+              {spell.type}
+            </Typography>
+          </Grid>
           <Grid item xs={3}>
             <Typography
               variant="overline"
               className={classes.lineHeight + " " + classes.textSecondary}
             >
-              MATERIAIS
+              TEMPO DE CONJURAÇÃO
             </Typography>
-            <Typography>{spell.materials}</Typography>
+            <Typography variant="body1" className={classes.lineHeight}>
+              {spell.casting_time}
+            </Typography>
           </Grid>
-        ) : null}
-      </Grid>
-      <Grid item xs={12} className={classes.description}>
-        <Typography variant="body1">
-          <ReactMarkdown remarkPlugins={[gfm]}>
-            {spell.description}
-          </ReactMarkdown>
-        </Typography>
-      </Grid>
-    </motion.div>
+          <Grid item xs={3}>
+            <Typography
+              variant="overline"
+              className={classes.lineHeight + " " + classes.textSecondary}
+            >
+              ALCANCE
+            </Typography>
+            <Typography variant="body1" className={classes.lineHeight}>
+              {spell.range}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="overline"
+              className={classes.lineHeight + " " + classes.textSecondary}
+            >
+              DURAÇÃO
+            </Typography>
+            <Typography variant="body1" className={classes.lineHeight}>
+              {spell.duration}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="overline"
+              className={classes.lineHeight + " " + classes.textSecondary}
+            >
+              COMPONENTES
+            </Typography>
+            <div className={classes.componentsContainer}>
+              {spell.components.map((component) => (
+                <SpellComponent key={component} component={component} />
+              ))}
+            </div>
+          </Grid>
+          {spell.materials ? (
+            <Grid item xs={12}>
+              <Typography
+                variant="overline"
+                className={classes.lineHeight + " " + classes.textSecondary}
+              >
+                MATERIAIS
+              </Typography>
+              <Typography className={classes.lineHeight}>
+                {spell.materials}
+              </Typography>
+            </Grid>
+          ) : null}
+        </Grid>
+        <Grid item xs={12} className={classes.description}>
+          <Typography
+            variant="body1"
+            component="div"
+            className={classes.descriptionText}
+          >
+            <ReactMarkdown remarkPlugins={[gfm]}>
+              {spell.description}
+            </ReactMarkdown>
+          </Typography>
+        </Grid>
+      </motion.div>
+    </div>
   );
 }

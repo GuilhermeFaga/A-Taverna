@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     width: "100%",
     marginLeft: theme.spacing(1),
+    "& > input": {
+      borderBottom: "none",
+    },
   },
   textField: {
     color: theme.palette.text.contrastText,

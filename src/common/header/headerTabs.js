@@ -7,7 +7,6 @@ import { Tabs, Tab } from "@material-ui/core";
 const CustomTabs = withStyles((theme) => ({
   indicator: {
     height: 4,
-    borderRadius: 25,
   },
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
@@ -20,9 +19,6 @@ const CustomTab = withStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     marginRight: theme.spacing(3),
     transition: "opacity 0.5s",
-    "&$selected": {
-      color: theme.palette.secondary.main,
-    },
     "&:hover": {
       opacity: 1,
     },
