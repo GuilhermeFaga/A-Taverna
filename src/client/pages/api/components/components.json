@@ -1,0 +1,32 @@
+[
+  {
+    "letter": "V",
+    "name": "Verbal",
+    "description": "Um componente verbal é um encantamento falado. Para fornecer um componente verbal, você deve ser capaz de falar com uma voz forte. Um feitiço de silêncio ou uma mordaça estraga o encantamento (e, portanto, o feitiço). Um conjurador que foi ensurdecido tem 20% de chance de estragar qualquer feitiço com um componente verbal que ele ou ela tente lançar."
+  },
+  {
+    "letter": "S",
+    "name": "Somático",
+    "description": "Um componente somático é um movimento medido e preciso da mão. Você deve ter pelo menos uma mão livre para fornecer um componente somático."
+  },
+  {
+    "letter": "M",
+    "name": "Material",
+    "description": "Um componente material é uma ou mais substâncias físicas ou objetos que são aniquilados pelas energias do feitiço no processo de conjuração. A menos que seja fornecido um custo para um componente de material, o custo é insignificante. Não se preocupe em manter o controle dos componentes materiais com custo insignificante. Suponha que você tenha tudo de que precisa, contanto que tenha sua bolsa de componentes de feitiço."
+  },
+  {
+    "letter": "F",
+    "name": "Foco",
+    "description": "Um componente de foco é algum tipo de adereço. Ao contrário de um componente material, um foco não é consumido quando o feitiço é lançado e pode ser reutilizado. Tal como acontece com os componentes materiais, o custo de um foco é insignificante, a menos que seja fornecido um preço. Assuma que os componentes de foco de custo insignificante estão em sua bolsa de componentes de magia."
+  },
+  {
+    "letter": "FD",
+    "name": "Foco Divino",
+    "description": "Um componente de foco divino é um item de significado espiritual. O foco divino para um clérigo ou paladino é um símbolo sagrado apropriado para a fé do personagem.\n\nSe a linha de componentes inclui F/FD ou M/FD, a versão arcana da magia tem um componente de foco ou um componente material (a abreviatura antes da barra) e a versão divina tem um componente de foco divino (a abreviatura depois da barra)."
+  },
+  {
+    "letter": "XP",
+    "name": "Custo XP",
+    "description": "Alguns feitiços poderosos implicam em um custo em pontos de experiência para você. Nenhum feitiço pode restaurar o XP perdido dessa maneira. Você não pode gastar tanto XP a ponto de perder um nível, então não pode lançar o feitiço a menos que tenha XP suficiente de sobra. No entanto, você pode, ao ganhar XP suficiente para atingir um novo nível, usar esses XP para lançar um feitiço ao invés de mantê-los e avançar um nível. Os XP são tratados apenas como um componente material - gasto quando você lança o feitiço, quer o lançamento seja bem-sucedido ou não."
+  }
+]

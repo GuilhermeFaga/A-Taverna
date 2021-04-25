@@ -1,0 +1,10 @@
+.title {
+  align-items: center;
+  display: flex;
+}
+
+.toolbarItens {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}

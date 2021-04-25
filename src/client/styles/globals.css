@@ -1,0 +1,37 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-width: 1px;
+  border-color: #e7e7e7;
+  border-style: solid;
+}
+
+table td,
+table th {
+  border-width: 1px;
+  border-color: #e7e7e7;
+  border-style: solid;
+  padding: 5px;
+  text-align: start;
+}
+
+table thead {
+  background-color: #e7e7e7;
+}
