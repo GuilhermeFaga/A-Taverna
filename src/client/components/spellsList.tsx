@@ -5,6 +5,10 @@ import { AutoSizer } from "react-virtualized";
 import { FixedSizeList as List } from "react-window";
 import { Spell } from "util/types";
 import { useRouter } from "next/router";
+import { useSpells } from "pages/magias";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { spellSelected } from "redux/reducer";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -29,8 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpellsList({ spells }: { spells: Array<Spell> }) {
+export default function SpellsList() {
+  const { spellsData, isLoading } = useSpells();
+  const filtered = useSelector((state: RootState) => state.spells_filter.data);
   const classes = useStyles();
+
+  if (isLoading) return <h2>Loading...</h2>;
+
+  const spells = filtered.length ? filtered : spellsData;
 
   return (
     <React.Fragment>
@@ -61,8 +71,13 @@ function Row({
   index: number;
   style: any;
 }) {
+  const dispatch = useDispatch();
   const router = useRouter();
-  var id = router.query.id ? router.query.id[0] : "acalmar-emocoes";
+
+  var id = router.asPath.split("/")
+    ? router.asPath.split("/")[2]
+    : "acalmar-emocoes";
+
   const selected = id == spells[index].id;
 
   return (
@@ -70,10 +85,12 @@ function Row({
       style={style}
       button
       onClick={() => {
-        if (!(router.query.id && router.query.id[0] === spells[index].id))
+        if (!(router.query.id && router.query.id[0] === spells[index].id)) {
           router.push("/magias/" + spells[index].id, undefined, {
             shallow: true,
           });
+          dispatch(spellSelected(spells[index]));
+        }
       }}
       selected={selected}
     >

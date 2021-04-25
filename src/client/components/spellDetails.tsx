@@ -6,6 +6,8 @@ import gfm from "remark-gfm";
 import { useAnimation, motion } from "framer-motion";
 import { Spell } from "util/types";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -71,11 +73,12 @@ async function sequence(controls: any) {
   return await controls.start("settle");
 }
 
-export default function SpellDetails({ spell }: { spell: Spell }) {
+export default function SpellDetails() {
+  const spell = useSelector((state: RootState) => state.spells.selected);
   const classes = useStyles();
   const controls = useAnimation();
 
-  if (!spell) return null;
+  if (!!!spell) return null;
 
   sequence(controls);
 

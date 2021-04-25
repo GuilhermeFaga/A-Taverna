@@ -8,9 +8,8 @@ import { Spell } from "util/types";
 import { capitalize } from "util/helper";
 import SpellDetails from "components/spellDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { useEffect } from "react";
-import { spellsLoaded } from "redux/reducer";
+import { spellSelected, spellsLoaded } from "redux/reducer";
+import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
   spellsList: {
@@ -31,39 +30,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Spells({
-  spells: spellsData,
-}: {
-  spells: Array<Spell>;
-}) {
-  const dispatch = useDispatch();
+export default function Spells() {
   const classes = useStyles();
-  const router = useRouter();
-  const filtered = useSelector((state: RootState) => state.spells_filter);
-
-  useEffect(() => {
-    dispatch(spellsLoaded(spellsData));
-  }, []);
-
-  const spells = filtered.data.length ? filtered.data : spellsData;
-
-  var id = router.query.id ? router.query.id[0] : "acalmar-emocoes";
-
-  var selectedSpell = spells[0];
-
-  spells.forEach((spell) => {
-    if (spell.id === id) selectedSpell = spell;
-  });
 
   return (
     <>
-      <CustomHead title={`Magias - ${capitalize(selectedSpell.name)}`} />
+      <SpellHead />
       <Grid item xs={2}></Grid>
       <Grid item className={classes.spellsList} xs={2}>
-        <SpellsList spells={spells} />
+        <SpellsList />
       </Grid>
       <Grid item xs={7}>
-        <SpellDetails spell={selectedSpell} />
+        <SpellDetails />
       </Grid>
       <Grid item xs={1}>
         <div className={classes.test2}>
@@ -74,14 +52,44 @@ export default function Spells({
   );
 }
 
-export async function getStaticProps() {
-  const req = await fetch("https://a-taverna.web.app/api/spells");
-  const data = await req.json();
+function SpellHead() {
+  const { spellsData, isLoading } = useSpells();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  var title = "Magias";
+
+  if (!isLoading) {
+    var selectedSpell = spellsData[0];
+
+    var id = router.asPath.split("/")
+      ? router.asPath.split("/")[2]
+      : "acalmar-emocoes";
+
+    spellsData.forEach((spell) => {
+      if (spell.id === id) selectedSpell = spell;
+    });
+
+    dispatch(spellSelected(selectedSpell));
+
+    title += ` - ${capitalize(selectedSpell.name)}`;
+  }
+
+  return <CustomHead title={title} />;
+}
+
+export function useSpells() {
+  const { data, error } = useSWR("/api/spells/", fetcher);
+  const dispatch = useDispatch();
+  dispatch(spellsLoaded(data));
+
+  const spells: Array<Spell> = data;
 
   return {
-    props: {
-      spells: data,
-    },
-    revalidate: 86400,
+    spellsData: spells,
+    isLoading: !error && !data,
+    isError: error,
   };
 }
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
